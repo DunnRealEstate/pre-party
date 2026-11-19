@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Christmas Party Pre-Party</title>
+<meta name="description" content="Sequoia Real Estate Christmas Party Pre-Party, Friday December 18, 4-6 PM. Pick your coffee cake flavor by December 4.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* ===================== EDIT THESE ===================== */
+/* Flavors and the Apps Script URL live in the <script> at the bottom. */
+/* ====================================================== */
+
+/* Layout: one narrow column. Logo, invitation, event card, then the order form. */
+:root {
+  --slate: #394753;
+  --slate-deep: #2b3540;
+  --taupe: #8C7F75;
+  --taupe-wash: #F3F0EE;
+  --paper: #FFFFFF;
+  --ground: #FAFAF9;
+  --ink: #26303a;
+  --muted: #66707b;
+  --line: #E4DFDA;
+  --ok: #3A8253;
+  --pine: #163A37;
+  --pine-deep: #0F2A28;
+  --berry: #A3262E;
+  --berry-deep: #841D24;
+  --berry-wash: #FBF1F0;
+  --gold: #C9A45C;
+  --err: #A3352E;
+  --display: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--ground);
+  background-image: radial-gradient(rgba(30,70,54,.06) 1.5px, transparent 1.6px);
+  background-size: 22px 22px;
+  color: var(--ink);
+  font: 16px/1.6 var(--body);
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.ribbon {
+  position: fixed; inset: 0 0 auto; z-index: 5; height: calc(8px + env(safe-area-inset-top, 0px));
+  background: repeating-linear-gradient(-45deg, var(--berry) 0 14px, #fff 14px 24px, var(--pine) 24px 38px, #fff 38px 48px);
+}
+#snow { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.wrap { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; padding-block: 48px 64px; display: grid; gap: 28px; }
+
+header { display: grid; justify-items: center; gap: 28px; text-align: center; }
+header img { width: 168px; height: auto; }
+.seq-logo { width: min(260px, 70vw); height: auto; margin-block: 8px 10px; }
+.eyebrow {
+  font: 700 13px/1 var(--display); letter-spacing: .22em; text-transform: uppercase; color: var(--berry);
+}
+h1 {
+  font: 700 clamp(30px, 7vw, 44px)/1.1 var(--display); color: var(--pine);
+  margin: 10px 0 0; text-wrap: balance; letter-spacing: -.01em;
+}
+.lede { margin: 14px auto 0; max-width: 34em; color: var(--muted); font-size: 17px; }
+
+.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.fact { border-radius: 6px; padding: 20px 18px; text-align: center; display: grid; gap: 6px; }
+.fact.party { background: var(--pine); color: #fff; box-shadow: inset 0 0 0 3px var(--pine), inset 0 0 0 4px var(--gold); }
+.fact.rsvp { background: var(--berry-wash); color: var(--berry-deep); border: 2px solid var(--berry); }
+.fact .k { font: 600 12px/1 var(--display); letter-spacing: .2em; text-transform: uppercase; }
+.fact.party .k { color: var(--gold); }
+.fact.rsvp .k { color: var(--berry); }
+.fact .big { font: 700 clamp(24px, 5.5vw, 32px)/1.1 var(--display); letter-spacing: -.01em; }
+.fact .sub { font: 600 clamp(16px, 3.6vw, 19px)/1.2 var(--display); }
+.event {
+  background: var(--pine); color: #fff; border-radius: 6px;
+  display: grid; overflow: hidden;
+}
+.datebox {
+  background: var(--pine-deep); padding: 22px 26px; display: grid; place-content: center; text-align: center;
+  font-family: var(--display);
+}
+.datebox .mo { font-size: 13px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #cfc6bf; }
+.datebox .dy { font-size: 44px; font-weight: 700; line-height: 1; margin-top: 4px; }
+.datebox .wd { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #cfc6bf; margin-top: 6px; }
+.details { padding: 22px 24px; display: grid; gap: 12px; min-width: 0; }
+.row { display: grid; gap: 2px; }
+.row .k { font: 600 11px/1.2 var(--display); letter-spacing: .18em; text-transform: uppercase; color: #cfc6bf; }
+.row .v { font-size: 16px; }
+.links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 2px; }
+.links a { color: #fff; font-size: 14px; text-underline-offset: 3px; text-decoration-color: rgba(255,255,255,.45); }
+.links a:hover { text-decoration-color: #fff; }
+
+.card { background: var(--paper); border: 1px solid var(--line); border-top: 4px solid var(--berry); border-radius: 6px; padding: 28px 24px; }
+.card h2 { font: 700 22px/1.25 var(--display); color: var(--pine); margin: 0; }
+.deadline {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
+  background: var(--berry); color: #fff; border-radius: 999px; padding: 9px 18px;
+  font: 600 15px/1.2 var(--display); letter-spacing: .02em;
+}
+.deadline b { font-weight: 600; }
+form { display: grid; gap: 18px; margin-top: 22px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+label { font-size: 14px; font-weight: 600; color: var(--slate); }
+label .opt { font-weight: 400; color: var(--muted); }
+input, select, textarea {
+  font: 16px/1.4 var(--body); color: var(--ink); background: var(--paper);
+  border: 1px solid #cfc8c2; border-radius: 4px; padding: 12px 12px; width: 100%;
+}
+select {
+  appearance: none; -webkit-appearance: none; padding-right: 40px; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23394753' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+textarea { min-height: 80px; resize: vertical; }
+input:focus, select:focus, textarea:focus, button:focus-visible {
+  outline: 2px solid var(--pine); outline-offset: 1px; border-color: var(--pine);
+}
+button {
+  font: 600 15px/1 var(--display); letter-spacing: .08em; text-transform: uppercase;
+  background: var(--berry); color: #fff; border: 0; border-radius: 4px; padding: 17px 20px; cursor: pointer;
+}
+button:hover { background: var(--berry-deep); }
+button[disabled] { opacity: .6; cursor: progress; }
+.msg { font-size: 15px; margin: 0; }
+.msg.err { color: var(--err); }
+.hp { position: absolute; left: -9999px; }
+
+.done { text-align: center; padding-block: 12px; }
+.done .check {
+  width: 52px; height: 52px; border-radius: 50%; background: var(--taupe-wash); color: var(--ok);
+  display: grid; place-items: center; margin: 0 auto 14px; font-size: 26px; font-weight: 700;
+}
+.cal-btns { display: grid; gap: 10px; justify-items: center; margin-top: 22px; }
+.cal-btn {
+  display: inline-block; width: min(100%, 360px); text-align: center; background: var(--pine); color: #fff; text-decoration: none;
+  font: 600 14px/1.3 var(--display); letter-spacing: .06em; text-transform: uppercase;
+  border-radius: 4px; padding: 15px 20px;
+}
+.cal-btn:hover { background: var(--pine-deep); }
+.cal-btn.alt { background: var(--paper); color: var(--pine); box-shadow: inset 0 0 0 2px var(--pine); }
+.cal-btn.alt:hover { background: var(--pine); color: #fff; }
+.cal-btn:focus-visible { outline: 2px solid var(--berry); outline-offset: 2px; }
+.done p { color: var(--muted); margin: 10px auto 0; max-width: 30em; }
+
+footer { text-align: center; color: var(--muted); font-size: 13px; }
+
+@media (max-width: 520px) {
+  .wrap { padding-block: 28px 48px; }
+  .datebox { grid-auto-flow: column; gap: 12px; align-items: baseline; padding: 14px 20px; }
+  .datebox .dy { font-size: 30px; margin: 0; }
+  .datebox .wd { margin: 0; }
+  .two { grid-template-columns: 1fr; }
+  .facts { grid-template-columns: 1fr; }
+  .card { padding: 24px 18px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .done { animation: rise .35s ease-out; }
+  @keyframes rise { from { transform: translateY(6px); opacity: .4; } to { transform: none; opacity: 1; } }
+}
+</style>
+</head>
+<body>
+<div class="ribbon" aria-hidden="true"></div>
+<canvas id="snow" aria-hidden="true"></canvas>
+<div class="wrap">
+
+  <header>
+    <img class="seq-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABOQAAACbCAYAAADC+kQbAAAPmklEQVR42u3dXZIcqxEG0IaoNXgrjvD+94VfZIeuNNL0D1CZyTlPfvCd6U4gP6BrWu1f//n3o4Dx5n/XHgBU6en6PgDyCIAUrsMD8ZmfKSwB8h10Xv2dej2APJJHAGt7pR73k6v4YK96HSaRRsJe1py1t/u1mXPMnLPmk7FCHskj9DzgH6JdyGW5KBGUALX6+t9etx4PII/kEaCHzvk5etkPV6GBFZQADj16PADyCIDw7ryQq/png0NIAg49R7xPfR5AHskjQF99/efpW497LuSEJICArvTe9XgAeSSPAHjJzgs5ISkkAQcfPR4AeSSPgLN7rKfkHnsu5ISkkASEsh4PgDySRwD8sPpCTlAKScDBR48HQB7JI0C//fXnH92frsSDJyQBHHz0eAB5hDwCSKcvavgC0wYD0JtQRwB9VB0B9KUvXIoZbiL65AoQjHo8APJIHgH6b2HdgIWc+GoJCF/1BdAvUV+AomZdyGnoQhLI33P0HbUG0CPVGtAbKv++MLriWQiAXqME6g6gL6o7APt8+h1yEZt3KxY0vucBsAmv2+eP/+feAeSRPAKO78VH9qAr4UA93hyoFvw9maCAw8/7Pf6Z/24EHgf9HZBH8kgeARzk3Qu5O0Kk3fA7ooWlkAQqHnzaTb9nBBwTPR6QR/JIHgEn9uTj7juu4K+vBfr9vluBaPMTsh5+WtA1PIKMj94CyCN5JI8AinvnQm5HQERs/i7nAIefer39q9fn00EAeSSP5BHoy/rOUlewQcpS+Lsu5wQikC1kM/atCB/AOAQB8kgeySOAwnrQwMkWlE19AIefW3pj5ffhaWxAHskjeQTIiqJ6gKIISYA6gVa1F971vhyCAHkkj+QRkGF9uw950d1PyAlJExuodfipziEIQB7JIwA+9ux3yK1ovtWDctaXsbqMA6Jvmk/rU1G+bBtAHskjeQRE6NFtwesq39PvekLupLBs6gQU7m/t8Pdf8UALoCd77/II0IsXe+ZCbhggh1YglR2bZT1tf393CALkkX22PAKireUW/PWF1c3B7UHpsAtUOPxwT00cggB5JI/kEaAPFdANzC2Ts6kT4PBj8+EQBMgjeSSPgMR9uiV5nSH1jW9eaD5XD3UCIoaVPwlSJwB9Vp0Anu1BfMOfrMaapCYtIFDV7BmeSgCiWtmf5JE8As5bt2X7zK4LOeH599qoD+Dw4xBkcwLII3kkj4AqvUXf/oYn5M4JSsDhR1/S2wHkkTwCIIB+U6gCYOOulrEPwADySC3lEdSS5R9zOKLH7HhCTogC5AomfdshCEAeySN5BOjjC/mTVQCwIQFAHgG1ZX06bvbrD8OFHMDZgWqTbj4AyCPkEbCKfv4HLuQAbHaFpQ0JgDySR4B+Hb13lLr0dyEHgI15jVp7KgHQI5FHgN6ehAs5gFxWbHIFpE0JgDySR4B+naFflLn0dyEHADZcACCPgJV8APALF3IAZ29uBaNNCYA8kkcAp+fQdi7kAGzAqTUGnkoA9ELkETBzHerTC7iQAzgrTAFAHgFwBxd7P3EhByAMqTcWDsyAPEIewdmqPx2Xvr90RQIAAABgAx/E/OAJOYD4Zn+wIQRtTADkEbvGxAMakLdft0Pe5y1cyAGAjRgAZDmAA/pMCbsu5BwKAGL0T+FnYwIgjwD06yp9Ou19UxeSAGBDBgDyCNjo+DunnX+yqgkDCD2MEYBeZ4yANYb3nYfvkAMQLAAgjwD4H5fyG+y+kBPmAEKVvWMlewGQR0D1PpOux/SNxdGIAQDA4QuA+U77xxzS68knCoBAxYEVAOQRoM+kcud3yDlsAgg5AGKbuWeXRwCxe3VTh336zQPiUg4AbE4AkEfAuY78wCbCv7I6NGYAsDEBQB4BL/N03Jp6LNcVDaB0iNhEAwAA0R13bunBCuNpOQAAiMEHRABn9OmmLvv1wMVzMQcAAABAOa9cyN1xYzoeLucAONfM7JWlAMgjqKPiWjqq1/Qbi/NOMTVvAAAAgDl8pcBNesLX7Kk5AOEKgDwCQGb8Teh7o35zcWYU1+UcUIl+BoA8AmBHj/aByY16oUEbDxd0AAAAAJkdcVHYCxfIBR0ANiQAII+gEk/H3VOv6fpBA+iCDgAAACC+8heG16QiZbzgGicOOMvnEJosRO9b1h0A8gjOPoO2A+sW7j13g/nbIHmKDqjAJhcAeQSADAnqWlCoShdZw4YCAAAAuJmHhj6vX6g7nb7gZ7biA+jpOQAAACAjDxoF0Q3w21zOAQAAAKudfO/Qqtbx2lC0cdjicNsMAAAAROO+IpC+acBPGnRPzQEAAADMUfJOqW8u4IkXcy7nAAAAgHfMulPwdNzcen6s3/A724ETwcUcAAAAwHvK3SP1m4vpYg4AAADgd56Oi13Xj/QAr6E9zvxzVgAAAACeU+reqAcs7imXc56WAwAAAL7ivqB4fa/AxWmHTMTxxfsFAAAA+JS7hqB6oglU/ck5t98AAACA+4E/a1XqfBUo/ii26NxeAwAAAJ9yvxBYLzLBKj1B5yYcAAAA4GslnpK7DhiYjBdcvlfuvCYAK/qIOQqAPALIeR/gvFrcdcB7bAsnuA0MQJwNiH6pRgDII+CcPpL6Lwyvgwdu1gFwx+FUYAHVjI0/Uw8FAOCkPbL97+t1316zS91/m6y+ww0g9gbj09/b1A0AANJL/ZScC7mvBzTaQchTckBWI/hr0lsBIG+mgzX2O/vb9+u/tXYu5F6bzOOkyQFwwKbd5RwAALBdV4KXtJsPbD6VgjP6TOaeMRL3qsyvHUAeAeSlTx6YV56Q+3zALRyAf/bH7H3RU3MAAGTdi5OEJ+TmTPidk94FIMDennv31xXYoAFQ7fwEOONH7SvbxsOF3NwJIFwAavZCf84KwMlkINiDM5kLuZyLQCAC+sV99VRTAHkEQCzpnpJzIbduIridBiKEiffgYAmglwPU3lPq1wn5Rx3Wb2LGwoVr0QGn9sBIG6i2+OcDQIS8A6xTJvKE3J4DKYCArl3f6DWWRYA8Qh6Bnkig8XEhJ3gA9D+bKgAAYCMXcrkPpQ5/oGcQy6yn5fT3evMC5BH6F2BtGaf/cyFnQwMIE72v9iZL9mC9WSv6I/IIIBgXcgDg0InDIwBgj8jG8XIhZ3MPnNMvPCV3T4CPROMEUD2PME4AIVxKAMDGA9144f9b6cAwHvdcSvoQCIAoewDARXfmcZvex1zIxT+URj3kAUTZpLckm51n+rVNmo0cQJSeBcBC/mQVILZqfybUfvnfbeHvWfnzHXDAmpJHxg4Ae463eUIOgOyHuld+X4QD4PhDHUbyOoO+BA6d1hfsW1sk5wk5AJuB0w7dUZ6csynLM2cAfRAApnIhZ4MPnNkvHIJiXMyNReMhY2Ky7pBH1oU+BdYWxvHxeLiQA4C7L+Zs0MDagcoZC8AXXMgBnLuhdZj9vcYODgDy6FTGAawtNo6nCzkAWH/Y9PrV1KY87uHGmoE1vcnaAvgL/8oqQK5Lgdkb5mHD/NdDhMsTAHkE8Elvm70/5f6xmJJZnpADwKVTnY2PjZo1B9YGEeoujwD75G+4kAMQJHxfc3WHODxtII+IuZ4AeWV8X+BCDgAb8hobIRu1XPW15sDa0C8BDu5PLuQABIlD0Gu1d9CA++hT8gh1Br2WEl65kBuatgAE9CZCboxs1Kw3rBvrgwj1ta5ADzsp/z8a5/7GL3ExZzMJ1F77enyu/isH1NrhBnlEhLrqkWBd8YJnLuSGgASwWccmCWtNnTD26glYZ/bwc8a7f/iDTTQLFKgRJHrVZ+PQis4B9tTcWrN21NMayX4GsabAuuJFfULDFpAADkHs3zTZpHEKfUgPNA9i108egV5l3N/QJ/0wk06tAH0LhxLjbJ1lqIt1aj6oG2BPye017hN/ln/swSIF6vYC/T1eb848JsO+wTpD/7NOSvQV5xHQn3hz/PuCSWQSqg3gEKTXy5VnX/Ow5qyzjbVweSCPrCHrCSBEH+uLmrZPvQEcghx+9v3Okbw+9g3WmRrII3NEfYB9PZQAvbcvbtqCYF0tLFLAJj9WTYZx+fj1ZZtbzTpL9d7tncwVeWQ9gX5EmH7WN0wen3p7/0C9QNHbY/b4UaBG5tbZ+wdjL4/kUfz14zIOrC8m6Bsb96lB6ftPgMpB7gOXmK+pwiXhsN6OWmOr5629kzySR9YS6D/s6G1Pz4d+w0QdFiZAuUPQaf0uw3seBV5DlrnVzLfQc9UFgjySR9YS6JeE028a9BPC0vefAKeF+im9fXi923+vD7jq1sHYyiO9Osd7dAYBOcbkedFvbrAVw9L3WAAnH4L0dq9/HDoGvi8r5vtwiSCP5JF1BHokIcegB5kAlTaXFikg4Ov09mqHuZXvxwdS/jQv2uu2b5JH8sg6gsznf4rPj+uLhjuCvOBmIQJM3VDf1auGvh72/TW1MpZF15RLBHkkj6wjgNAZdQULyT+FT9Qw8L0NgICp09dPvFgab2SNw2HMdRb1osGFLfIo57px9oB969R6qz1P/ji+1zcTYgSc7K3QwrNANWGsg9MOQdH6unWsHtXW2d1ry0UC8ih//7WGAPm0wZUkKL8Lq3bD7xSIgJBZ02Pbxt9lTHLNW+ss3toa5gnyqFweAdYcc/v9l+N8PTlBRoI3+OkkdxACHILi9/SK/bwlylub1dzrbJgnWCfyyBoCeUqMbLpeeDGZJ95IPAkATjwEnbIBagXGRBbWW2fmCdaJPAKsOxbrJozFCRzfa/SbWHU3JvWy0HiqL/JI3aEGH7Ixbd70N36Qpm1jCeg7rK91UyfvB3U1pqg1WH/UHKNuAlmYAD/1Hz0oVn3bwbUyB1BL44v6QiSejmPq/Okf/kDNXDACNfsRcWp6Wj407xH1w1irKUD1ntknvkjNXTACtfqS3hSrjk2tZD/qpo+ijnCLMXk9Yh5Nu5DT6C1GQI9ife2q5uzJf5prjakV+oTaARzYQ/vCF6zxqxGgX6mXw5WDohqoD/JIvSAzT8exZD5dmzZQvvzQAgTq9C89PUZ/zz4e8tD6MkewXqwdgCx9dXrmXBtfvNAUjoCDkN5uPOSh9WV+YL1YO2CNcrLxeDzadeMEHBYeQJneNg5+7w6m8vDU8TQ/kEfWDVTnwp9lrht/d/XgFI7AiQeCccj7NBYy0X7J3EAPtHYAa/asMZyaLVfAyTksMoASfXAUfE/GQiZGGNNhTYE8ApbzdBxL59cV8EW1ZItAMALUOww1Y6FuiebnsKZAHgHWMVvGclqOXEkn77CYMIaQft2NwK/tpLEYamdMrSvkkTzCeQZ1Zu+8uIoWYFh4AA5F+ruaGNPl68v8QR5ZOwC84b/Vfo43jpaJqwAAAABJRU5ErkJggg==" alt="Sequoia">
+    <div>
+      <div class="eyebrow">Christmas Party Pre-Party</div>
+      <h1>Stop here before the real party.</h1>
+      <p class="lede">Swing by the office on your way to whatever Christmas party you've got that night. Grab a drink, say hi, and leave with a coffee cake. Share it at the party or keep it for yourself. Your call. We just need your flavor pick by December 4 so we can order the right ones.</p>
+    </div>
+  </header>
+
+  <section class="facts" aria-label="Key dates">
+    <div class="fact party">
+      <span class="k">The party</span>
+      <span class="big">Friday, Dec 18</span>
+      <span class="sub">4:00 to 6:00 PM</span>
+    </div>
+    <div class="fact rsvp">
+      <span class="k">RSVP deadline</span>
+      <span class="big">Friday, Dec 4</span>
+      <span class="sub">Pick your coffee cake by then</span>
+    </div>
+  </section>
+
+  <section class="event" aria-label="Location">
+    <div class="details">
+      <div class="row"><span class="k">Where</span><span class="v">10895 Lowell Ave, Suite 100<br>Overland Park, KS</span></div>
+      <div class="links">
+        <a href="https://www.google.com/maps/search/?api=1&query=10895+Lowell+Ave+Suite+100+Overland+Park+KS" target="_blank" rel="noopener">Get directions</a>
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sequoia+Real+Estate+Christmas+Party+Pre-Party&dates=20261218T160000/20261218T180000&ctz=America/Chicago&location=10895+Lowell+Ave+Suite+100,+Overland+Park,+KS&details=Grab+a+drink+and+your+coffee+cake+on+the+way+to+your+Christmas+party." target="_blank" rel="noopener">Add to Google Calendar</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="order">
+    <div id="formView">
+      <h2>Pick your coffee cake</h2>
+      <p class="msg" style="color:var(--muted);margin-top:6px">Fresh from McLain's Bakery.</p>
+      <div class="deadline" id="deadlinePill">RSVP by Friday, December 4</div>
+
+      <form id="rsvp" novalidate>
+        <div class="field">
+          <label for="flavor">Your coffee cake <span class="opt">(one per household)</span></label>
+          <select id="flavor" name="flavor" required>
+            <option value="" selected disabled>Choose a flavor</option>
+          </select>
+        </div>
+        <div class="two">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="guests">How many are coming?</label>
+            <select id="guests" name="guests" required>
+              <option value="1">Just me</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6 or more</option>
+            </select>
+          </div>
+        </div>
+        <div class="two">
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone <span class="opt">(optional)</span></label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel">
+          </div>
+        </div>
+        <div class="field">
+          <label for="note">Bringing a friend? Drop their name(s) here <span class="opt">(optional)</span></label>
+          <textarea id="note" name="note" placeholder="Friend's name"></textarea>
+        </div>
+        <input class="hp" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="msg err" id="err" role="alert" hidden></p>
+        <button type="submit" id="submit">Save my coffee cake</button>
+      </form>
+    </div>
+
+    <div class="done" id="doneView" hidden>
+      <div class="check" aria-hidden="true">&#10003;</div>
+      <h2>You're on the list.</h2>
+      <p id="doneText"></p>
+      <div class="cal-btns">
+        <a class="cal-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sequoia+Real+Estate+Christmas+Party+Pre-Party&dates=20261218T160000/20261218T180000&ctz=America/Chicago&location=10895+Lowell+Ave+Suite+100,+Overland+Park,+KS&details=Grab+a+drink+and+your+coffee+cake+on+the+way+to+your+Christmas+party." target="_blank" rel="noopener">Add to Google Calendar so you don't forget</a>
+        <a class="cal-btn alt" href="data:text/calendar;charset=utf-8,BEGIN%3AVCALENDAR%0D%0AVERSION%3A2.0%0D%0APRODID%3A-//Sequoia%20Real%20Estate//Pre-Party//EN%0D%0ACALSCALE%3AGREGORIAN%0D%0AMETHOD%3APUBLISH%0D%0ABEGIN%3AVEVENT%0D%0AUID%3Achristmas-pre-party-2026%40sequoiarealestate%0D%0ADTSTAMP%3A20261115T000000Z%0D%0ADTSTART%3A20261218T220000Z%0D%0ADTEND%3A20261219T000000Z%0D%0ASUMMARY%3ASequoia%20Real%20Estate%20Christmas%20Party%20Pre-Party%0D%0ALOCATION%3A10895%20Lowell%20Ave%5C%2C%20Suite%20100%5C%2C%20Overland%20Park%5C%2C%20KS%0D%0ADESCRIPTION%3AGrab%20a%20drink%20and%20your%20coffee%20cake%20on%20the%20way%20to%20your%20Christmas%20party.%0D%0ABEGIN%3AVALARM%0D%0ATRIGGER%3A-PT2H%0D%0AACTION%3ADISPLAY%0D%0ADESCRIPTION%3AChristmas%20Party%20Pre-Party%20today%0D%0AEND%3AVALARM%0D%0AEND%3AVEVENT%0D%0AEND%3AVCALENDAR%0D%0A" download="christmas-pre-party.ics">Apple or Outlook calendar</a>
+      </div>
+    </div>
+
+    <div class="done" id="closedView" hidden>
+      <h2>Coffee cake orders are closed.</h2>
+      <p>The order deadline was December 4. You're still welcome to stop by on the 18th, and if you need something, just reach out to us.</p>
+    </div>
+  </section>
+
+  <footer>Sequoia Real Estate &middot; 10895 Lowell Ave, Suite 100, Overland Park, KS</footer>
+</div>
+
+<script>
+/* ===================== EDIT THESE ===================== */
+// 1. Paste your Google Apps Script web app URL here (ends in /exec).
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw-s1lJ7FntX98ZVoz-LItS3B4Fdt7zP8_l9rcaSUkHvRBAI48-FxYblJdXI4PNQ_d-SQ/exec";
+
+// 2. The flavors that show in the dropdown, in this order.
+const FLAVORS = [
+  "Pecan",
+  "Almond",
+  "Apple",
+  "Raspberry",
+  "Blueberry Cheese",
+  "German Chocolate",
+  "Cinnamon Roll Pan"
+];
+
+// 3. Orders close at 11:59 PM Central on Friday, December 4, 2026.
+const DEADLINE = new Date("2026-12-04T23:59:59-06:00");
+/* ====================================================== */
+
+const $ = (id) => document.getElementById(id);
+const flavorSel = $("flavor");
+FLAVORS.forEach((f) => {
+  const o = document.createElement("option");
+  o.value = f; o.textContent = f;
+  flavorSel.appendChild(o);
+});
+
+function showClosed() {
+  $("formView").hidden = true;
+  $("doneView").hidden = true;
+  $("closedView").hidden = false;
+}
+if (Date.now() > DEADLINE.getTime()) showClosed();
+
+// Light snowfall. Skipped for people who turn off motion.
+(function () {
+  const c = $("snow"), ctx = c.getContext("2d");
+  if (!ctx || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let w, h, flakes;
+  function size() {
+    w = c.width = innerWidth; h = c.height = Math.min(innerHeight, 1400);
+    flakes = Array.from({ length: Math.round(w / 18) }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      r: 1 + Math.random() * 2.4, s: .3 + Math.random() * .7, d: Math.random() * 6.28
+    }));
+  }
+  size(); addEventListener("resize", size);
+  (function tick() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "rgba(30,70,54,.18)";
+    for (const f of flakes) {
+      f.y += f.s; f.d += .01; f.x += Math.sin(f.d) * .3;
+      if (f.y > h + 4) { f.y = -4; f.x = Math.random() * w; }
+      ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, 6.28); ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  })();
+})();
+
+$("rsvp").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const err = $("err");
+  err.hidden = true;
+
+  if (Date.now() > DEADLINE.getTime()) { showClosed(); return; }
+  if ($("website").value) return; // spam bot filled the hidden field
+
+  const data = {
+    name: $("name").value.trim(),
+    email: $("email").value.trim(),
+    phone: $("phone").value.trim(),
+    flavor: flavorSel.value,
+    guests: $("guests").value,
+    note: $("note").value.trim(),
+    site: "sequoia"
+  };
+  if (!data.name || !data.email || !data.flavor) {
+    err.textContent = "Add your name, email and a flavor, then hit save.";
+    err.hidden = false;
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    err.textContent = "That email address doesn't look right. Mind checking it?";
+    err.hidden = false;
+    return;
+  }
+
+  const btn = $("submit");
+  btn.disabled = true;
+  btn.textContent = "Saving...";
+  try {
+    // text/plain keeps this a "simple" request so Google doesn't block it.
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(data)
+    });
+    const first = data.name.split(" ")[0];
+    $("doneText").textContent = `Thanks, ${first}. One ${data.flavor} coffee cake has your name on it. See you December 18, 4 to 6 PM, before the real party ;)`;
+    $("formView").hidden = true;
+    $("doneView").hidden = false;
+    try { window.parent.postMessage({ dunnPrePartyScroll: true }, "*"); } catch (e) {}
+    scrollTo(0, 0);
+    $("rsvp").reset();
+  } catch (_) {
+    err.textContent = "That didn't go through. Check your connection and try again.";
+    err.hidden = false;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Save my coffee cake";
+  }
+});
+
+
+// Tell the Squarespace page how tall this is, so there is no inner scrollbar.
+(function () {
+  function sendHeight() {
+    var h = Math.ceil(document.documentElement.scrollHeight);
+    try { window.parent.postMessage({ dunnPrePartyHeight: h }, "*"); } catch (e) {}
+  }
+  sendHeight();
+  addEventListener("load", sendHeight);
+  addEventListener("resize", sendHeight);
+  [100, 300, 800, 1500, 3000].forEach(function (ms) { setTimeout(sendHeight, ms); });
+  if (window.ResizeObserver) new ResizeObserver(sendHeight).observe(document.body);
+})();
+</script>
+</body>
+</html>
